@@ -48,7 +48,13 @@ def handle_dialog(res, req):
     else:
         tokens = req['request']['nlu']['tokens']
         if tokens[0] == 'переведи' and tokens[1] == 'слово':
-            res['response']['text'] = translate(tokens[2])
+            if len(tokens[2]) == 1:
+                res['response']['text'] = translate(tokens[2])
+            else:
+                string = ''
+                for i in tokens[2:]:
+                    string += i + ' '
+                res['response']['text'] = translate(string)
         return
 
 
